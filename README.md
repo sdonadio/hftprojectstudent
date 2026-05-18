@@ -1,9 +1,5 @@
 # HFT Project 2026 - Programming Challenge
 
-============================================================
-HFTProject2026 - Programming Challenge
-============================================================
-
 Welcome to the 2026 High-Frequency Trading (HFT) Programming Challenge.
 Your mission is to build the fastest possible client capable of surviving
 extremely high message rates from a matrix-multiplication challenge server.
@@ -171,6 +167,91 @@ Your client will be evaluated on:
 - Stability under blast conditions
 - Ability to handle overlapping challenges
 - Efficient use of threads and CPU cores
+
+
+### Using the Python dashboard
+
+### HFT Dashboard (Python + Flask + Dash)
+
+A small web dashboard is provided to visualize the results written by the server
+to `/tmp/results.json`.
+
+The dashboard:
+
+- Reads `/tmp/results.json`
+- Serves the raw JSON at `/results`
+- Exposes an interactive dashboard at `/dashboard/`
+- Shows:
+  - Aggregated stats per client
+  - Overall average latency per challenge
+  - Per-client latency over time
+  - Victories per client
+  - Latency histogram
+  - Overall average ranking per client
+  - Raw JSON data
+
+#### 0. Requirements
+
+You need Python 3 and the following packages:
+
+```bash
+pip install flask dash plotly
+```
+
+#### 1. File location
+
+Save the script as, for example:
+
+```bash
+HFTProject2026/HFTDashboard/dashboard.py
+```
+
+Make sure the server writes its results to:
+
+```bash
+/tmp/results.json
+```
+
+(the script expects `RESULTS_FILE = "/tmp/results.json"`).
+
+#### 2. Running the dashboard
+
+From the project root:
+
+```bash
+cd HFTDashboard
+python dashboard.py
+```
+
+By default it runs on:
+
+- Host: `0.0.0.0`
+- Port: `5001`
+
+So the URLs are:
+
+- Raw JSON: `http://localhost:5001/results`
+- Dashboard: `http://localhost:5001/dashboard/`
+
+#### 3. Typical workflow
+
+1. Start your HFT server (which writes to `/tmp/results.json`).
+2. Run several clients so that results accumulate.
+3. Start the dashboard:
+
+   ```bash
+   cd HFTDashboard
+   python dashboard.py
+   ```
+
+#### 4. Open a browser and go to:
+
+   ```text
+   http://localhost:5001/dashboard/
+   ```
+
+#### 5. Watch latencies, wins, and rankings update over time.
+
 
 
 ## Rules
